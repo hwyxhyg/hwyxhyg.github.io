@@ -35,13 +35,17 @@
     var app = {};
     
     var option;
-
- 
     option = {
   title: {
     text: '2022年城轨交通运营线路制式结构',
     subtext: '数据来源：城市轨道交通2022年度统计和分析报告（单位：公里）',
-    left: 'center'
+    left: 'center',
+    textStyle:{
+      color:"white"
+    },
+    subtextStyle:{
+      color:"white"
+    }
   },
   tooltip: {
     trigger: 'item',
@@ -114,6 +118,7 @@
     }
 
     window.addEventListener('resize', myChart.resize);
+
   </script>
 </body>
 </html>
