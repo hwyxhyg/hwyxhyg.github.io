@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, 'dark', {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    const pathSymbols = {
+   train:
+    'path://M67.335,33.596L67.335,33.596c-0.002-1.39-1.153-3.183-3.328-4.218h-9.096v-2.07h5.371 c-4.939-2.07-11.199-4.141-14.89-4.141H19.72v12.421v5.176h38.373c4.033,0,8.457-1.035,9.142-5.176h-0.027 c0.076-0.367,0.129-0.751,0.129-1.165L67.335,33.596L67.335,33.596z M27.999,30.413h-3.105v-4.141h3.105V30.413z M35.245,30.413 h-3.104v-4.141h3.104V30.413z M42.491,30.413h-3.104v-4.141h3.104V30.413z M49.736,30.413h-3.104v-4.141h3.104V30.413z  M14.544,40.764c1.143,0,2.07-0.927,2.07-2.07V35.59V25.237c0-1.145-0.928-2.07-2.07-2.07H-9.265c-1.143,0-2.068,0.926-2.068,2.07 v10.351v3.105c0,1.144,0.926,2.07,2.068,2.07H14.544L14.544,40.764z M8.333,26.272h3.105v4.141H8.333V26.272z M1.087,26.272h3.105 v4.141H1.087V26.272z M-6.159,26.272h3.105v4.141h-3.105V26.272z M-9.265,41.798h69.352v1.035H-9.265V41.798z',
+};
+const labelSetting = {
+  show: true,
+  position: 'right',
+  offset: [10, 0],
+  fontSize: 20
+};
+option = {
+  title: {
+    text: '2018-2022年中国地铁里程变化',
+    y:"5%",
+    left:"20%",
+     textStyle:{
+      fontSize:'30px',
+      color:"#f2f7f5"
+    },
+  },
+  legend: {
+    data: ['2018年', '2019年','2020年','2021年','2022年'],
+     orient: 'vertical',
+    left: '12%',
+    y: "20%",
+    borderColor: '#777',
+    borderWidth: 1,
+    padding: 10,
+    textStyle:{
+                color: '#ffffff'//字体颜色
+           },
+           
+  },
+  tooltip: {
+    axisPointer: {
+      type: 'shadow'
+    },
+		trigger: 'item',
+			formatter: function(params) {
+				// console.log(params);
+				var htmlStr = '';
+				var color = params.color; //图例颜色
+				var seriesName = params.seriesName; //图例名称
+				var xName = params.name; //x轴的名称
+				var value = params.value; 
+				htmlStr += seriesName + '<br/>';
+				htmlStr +=
+					'<span style="margin-right: 5px; font-size: 16pt; font-family: Consolas;display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color:' +
+					color + ' ;"></span>';
+				htmlStr += "<span style='min-height: 20pt; font-size: 10pt'>";
+				htmlStr += xName;
+				htmlStr += '</span>';
+				htmlStr += "<span style='min-height: 20pt; font-size: 10pt; margin-left: 20px'>";
+				// console.log(params.data.length);
+				if (!value.length) {
+					htmlStr += value + '公里';
+				} 
+				htmlStr += '</span>'
+				htmlStr += '</div>';
+				return htmlStr;
+			}
+  },
+  grid: {
+    top:'0',
+    left:"10%",
+    containLabel: true
+  },
+  yAxis: {
+    data: ['中国地铁里程'],
+    inverse: true,
+    axisLine: { show: false },
+    axisTick: { show: false },
+    axisLabel: {
+      margin: 30,
+      fontSize: 20,
+      color:"#f2f7f5"
+    },
+    axisPointer: {
+      label: {
+        show: true,
+        margin: 30,
+        color:"#f2f7f5"
+      }
+    }
+  },
+  xAxis: {
+    splitLine: { show: false },
+    axisLabel: { show: false },
+    axisTick: { show: false },
+    axisLine: { show: false }
+  },
+  series: [
+    
+    {
+      name: '2018年',
+      type: 'pictorialBar',
+      label: labelSetting,
+      symbolRepeat: true,
+      barCategoryGap: '30%',
+      data: [
+        {
+          value: 4354.3,
+          symbol: pathSymbols.train,
+          symbolSize:[40,30]
+        }
+      ]
+    },
+    {
+      name: '2019年',
+      type: 'pictorialBar',
+      barGap: '10%',
+      label: labelSetting,
+      symbolRepeat: true,
+      symbolSize:[40,30],
+      data: [
+        {
+          value: 5179.6,
+          symbol: pathSymbols.train
+        }
+      ]
+    },
+    {
+      name: '2020年',
+      type: 'pictorialBar',
+      barGap: '10%',
+      label: labelSetting,
+      symbolRepeat: true,
+      symbolSize:[40,30],
+      data: [
+  
+        {
+          value: 6280.8,
+          symbol: pathSymbols.train
+        }
+      ]
+    },
+    {
+      name: '2021年',
+      type: 'pictorialBar',
+      barGap: '10%',
+      label: labelSetting,
+      symbolRepeat: true,
+      symbolSize:[40,30],
+      data: [
+  
+        {
+          value: 7210,
+          symbol: pathSymbols.train
+        }
+      ]
+    },
+    {
+      name: '2022年',
+      type: 'pictorialBar',
+      barGap: '10%',
+      label: labelSetting,
+      symbolRepeat: true,
+      symbolSize:[40,30],
+      data: [
+        {
+          value: 8008.17,
+          symbol: pathSymbols.train
+        }
+      ]
+    },
+    
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
