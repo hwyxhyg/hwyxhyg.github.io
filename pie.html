@@ -1,7 +1,3 @@
-<!--
-	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=pie-doughnut&code=PYBwLglsB2AEC8sDeAoWtJgDYFMBcya6GOAHmAQOQBMADNdYC56gc-qAW8YCVygWAmAL8YKQhg_X6B72MBsSoHh9QMt-gEPNKAGiLoAzgFcARmDIVYlQA6mgO2NApuaAEu0BY_80BAeq0DKCVzoNGgMr1A-36BC6MAxKoDAlQAnmgUqNAUiqAIf8BVZUBZeWNAG0VAGcTASH_ZeVhcADNNSgBjHGh1ACdKIgBfOXQwYGAsSBACVGIMTIgAc1qcTKoIdQBbHPR8olwG6AATCrjgGvTkgDdGyBSAQyxYqsTkxY7YLsVGiBwFAgBtOMqq2Ghp1vwtAEEUtIUFWAAxTOB2gsOwAE8QM8oQTfnDzOmfQgSm2sB2lAALLQAKSyLQAdhhlAAui8qtMxsAIH0ADLTFQ4LAAeQmmSw03KsASswUODRxHJBKwg0OxAUAAtgAB3AjUrC0-lVEDABQtKDQKhpDKNP6shLDVrTMBZXlKaApSAwWAACmmmVqAEpCKz0CkYAoSjgAHRYYC1XX6g0AbjiVUyODASkycD1tStx1OsAA1JQADrQShB2C-q2fTJSsDB2AAImhybiuVdq0FsBwrRA7OmotBB1ZjMJLJNik5POqSjpWaq8oyAGUIAAvM5QnNNmBgADqODq7OSKhKfRWrMzU5z5awOIg0DOpcOHO5vJpOCza0OfSV012jeQsDGs3rBAAHLRaBerQBGeEyI4nL6ABnVAIMplGzR6QJ7PZzvBgAGYrQhAA2J8Ay-MxAH31QBr_VYL8d1ZX9Tywc9YAAVjAiErXhR9n1OKhAEhzVhAFZXQAzeKQntjzQjDqDvABOPDMMgl8qEAb3jEO_KtUP_Ag7whXCwNYwivkAC9jAHK9URAm45DDj49Czkw-ErQvCCxKoQBBj0AO1suGon8_yUgggNwgioKoMjAAVtQAf7UARBVADeAwA7eMAb59HAM3ijPokDGLYoitBs1hRGctyPJNRSMLvWh718zStEAK8D7KsULVizZEMyIdLcidIA
-	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
--->
 <!DOCTYPE html>
 <html lang="zh-CN" style="height: 100%">
 <head>
@@ -40,6 +36,7 @@
     
     var option;
 
+ 
     option = {
   title: {
     text: '2022年城轨交通运营线路制式结构',
@@ -47,15 +44,35 @@
     left: 'center'
   },
   tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left'
+    trigger: 'item',
+     formatter: function (params) {
+      // console.log(params);
+      var htmlStr = '';
+      var color = params.color; //图例颜色
+      var seriesName = params.seriesName; //图例名称
+      var xName = params.name; //x轴的名称
+      var value = params.value; //y轴值
+      htmlStr +=
+        '<span style="margin-right: 5px; font-size: 20px; font-family: Consolas;display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color:' +
+        color +
+        ' ;"></span>';
+      htmlStr += "<span style='min-height: 20pt; font-size: 10pt'>";
+      htmlStr += xName;
+      htmlStr += '</span>';
+      htmlStr +=
+        "<span style='min-height: 20pt; font-size: 10pt; margin-left: 20px'>";
+      // console.log(params.data.length);
+      if (!value.length) {
+        htmlStr += value + '公里';
+      }
+      htmlStr += '</span>';
+      htmlStr += '</div>';
+      return htmlStr;
+    }
   },
   series: [
     {
-      name: 'Access From',
+      
       type: 'pie',
       radius: ['40%', '70%'],
       avoidLabelOverlap: false,
