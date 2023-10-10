@@ -33,7 +33,10 @@
       useDirtyRect: false
     });
     var app = {};
+    
     option = {
+  
+  color:["#4992ff","#ff6e76","#98d8c3","#7998b5","#f5e655","#f5f7d0","#e3f0f9","#fecbaf","#a683e2"],
   title: {
     text: '2022年城轨交通运营线路制式结构',
     subtext: '数据来源：城市轨道交通2022年度统计和分析报告（单位：公里）',
@@ -47,7 +50,7 @@
   },
     legend: {
     orient: 'vertical',
-    left: "10%",
+    left: "5%",
     y:"center",
     textStyle:{
                 color: 'white'//字体颜色
@@ -106,7 +109,7 @@
         show: false
       },
       data: [
-        { value: 8008.17, name: '地铁' },
+        { value: 8008.17, name: '地铁'},
         { value: 1223.46, name: '市域快轨' },
         { value: 564.77, name: '有轨电车' },
         { value: 219.75, name: '轻轨' },
