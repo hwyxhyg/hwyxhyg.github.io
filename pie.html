@@ -33,8 +33,6 @@
       useDirtyRect: false
     });
     var app = {};
-    
-    var option;
     option = {
   title: {
     text: '2022年城轨交通运营线路制式结构',
@@ -46,6 +44,14 @@
     subtextStyle:{
       color:"white"
     }
+  },
+    legend: {
+    orient: 'vertical',
+    left: "5%",
+    y:"center",
+    textStyle:{
+                color: 'white'//字体颜色
+           }
   },
   tooltip: {
     trigger: 'item',
@@ -92,7 +98,8 @@
         label: {
           show: true,
           fontSize: 40,
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color:"white"
         }
       },
       labelLine: {
@@ -112,6 +119,13 @@
     }
   ]
 };
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
 
     if (option && typeof option === 'object') {
       myChart.setOption(option);
