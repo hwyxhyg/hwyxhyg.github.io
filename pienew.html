@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+      option = {
+  
+  color:["#4575b4","#74add1","#abd9e9","#D1E7F5","#E3F0F9","#e0f3f8","#e3f0f9","#f5f7d0","#F1F1E4"],
+  title: {
+    text: '2022年城轨交通运营线路制式结构',
+    subtext: '数据来源：城市轨道交通2022年度统计和分析报告（单位：公里）',
+    left: 'center',
+    textStyle:{
+      color:"white"
+    },
+    subtextStyle:{
+      color:"white"
+    }
+  },
+    legend: {
+    orient: 'vertical',
+    left: "15%",
+    y:"center",
+    textStyle:{
+                color: 'white'//字体颜色
+           }
+  },
+  tooltip: {
+    trigger: 'item',
+     formatter: function (params) {
+      // console.log(params);
+      var htmlStr = '';
+      var color = params.color; //图例颜色
+      var seriesName = params.seriesName; //图例名称
+      var xName = params.name; //x轴的名称
+      var value = params.value; //y轴值
+      htmlStr +=
+        '<span style="margin-right: 5px; font-size: 20px; font-family: Consolas;display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color:' +
+        color +
+        ' ;"></span>';
+      htmlStr += "<span style='min-height: 20pt; font-size: 10pt'>";
+      htmlStr += xName;
+      htmlStr += '</span>';
+      htmlStr +=
+        "<span style='min-height: 20pt; font-size: 10pt; margin-left: 20px'>";
+      // console.log(params.data.length);
+      if (!value.length) {
+        htmlStr += value + '公里';
+      }
+      htmlStr += '</span>';
+      htmlStr += '</div>';
+      return htmlStr;
+    }
+  },
+  series: [
+    {
+      
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: false,
+        position: 'center',
+        formatter: function (arg) {
+        console.log(arg);
+        return arg.name +'\n'+ arg.percent + "%"
+    }
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold',
+          color:"white"
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 8008.17, name: '地铁'},
+        { value: 1223.46, name: '市域快轨' },
+        { value: 564.77, name: '有轨电车' },
+        { value: 219.75, name: '轻轨' },
+        { value: 144.65, name: '跨座式单轨' },
+        { value: 57.86, name: '磁浮交通' },
+        { value: 34.7, name: '电子导向胶轮系统' },
+        { value: 23.9, name: '导轨式胶轮系统' },
+        { value: 10.19, name: '自导向轨道系统' }
+      ]
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
+
