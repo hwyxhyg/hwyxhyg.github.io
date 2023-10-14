@@ -34,11 +34,11 @@
     });
     var app = {};
     
-    var option;
-
-      option = {
+        
+    option = {
   
-  color:["#4575b4","#74add1","#abd9e9","#D1E7F5","#E3F0F9","#e0f3f8","#e3f0f9","#f5f7d0","#F1F1E4"],
+  color:["#87ADC9","#d97992","#F8E285","#5365af","#f1f7ea","#98d8c3","#bfbcd2","#bdddf1","#f5f7d0"],
+    //"#87ADC9","#ff6e76","#98d8c3","#7998b5","#f5e655","#f5f7d0","#e3f0f9","#bdddf1","#a683e2"
   title: {
     text: '2022年城轨交通运营线路制式结构',
     subtext: '数据来源：城市轨道交通2022年度统计和分析报告（单位：公里）',
@@ -52,7 +52,7 @@
   },
     legend: {
     orient: 'vertical',
-    left: "15%",
+    left: "5%",
     y:"center",
     textStyle:{
                 color: 'white'//字体颜色
@@ -138,17 +138,6 @@
 
     window.addEventListener('resize', myChart.resize);
 
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-
-    window.addEventListener('resize', myChart.resize);
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-
-    window.addEventListener('resize', myChart.resize);
   </script>
 </body>
 </html>
