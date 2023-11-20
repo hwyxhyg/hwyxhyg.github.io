@@ -1,543 +1,220 @@
-<?php
-header('P3P: CP="CAO PSA OUR"');
-?>
 <!DOCTYPE html>
-<html lang="zh-CN" style="height: 100%">
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 </head>
-<body style="height: 100%; margin: 0">
-  <div id="container" style="height: 100%"></div>
 
-  
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-  <!-- Uncomment this line if you want to dataTool extension
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/dataTool.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use gl extension
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to echarts-stat extension
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use map
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
-  -->
-  <!-- Uncomment these two lines if you want to use bmap extension
-  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
-  -->
-
-  <script type="text/javascript">
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    var app = {};
-    
-    var option;
-
-var dataSZ = [[1, 1, 1]];
-var dataSH = [[2, 2, 3]];
-var dataGZ = [[3, 4, 4]];
-var dataBJ = [[4, 3, 2]];
-var dataHEB = [[5, 20, 11]];
-var dataXA = [[6, 9, 15]];
-var dataFZ = [[7, 6, 19]];
-var dataCD = [[8, 8, 5]];
-var dataHZ = [[9, 13, 12]];
-var dataCS = [[10, 7, 6]];
-var dataSY = [[11, 15, 8]];
-var dataSJZ = [[12, 29, 18]];
-var dataZZ = [[13, 16, 20]];
-var dataTJ = [[14, 28, 29]];
-var dataWUHAN = [[15, 14, 13]];
-var dataXIAMEN = [[16, 5, 7]];
-var dataKUNMING = [[17, 17, 17]];
-var dataNANJING = [[18, 27, 25]];
-var dataFOSHAN = [[19, 12, 30]];
-var dataGUIYANG = [[20, 19, 23]];
-var dataCQ = [[21, 10, 9]];
-var dataChangchun = [[22, 35, 32]];
-var dataNanning = [[23, 18, 21]];
-var dataQingdao = [[24, 23, 31]];
-var dataLanzhou = [[25, 21, 14]];
-var dataChangzhou = [[26, 24, 24]];
-var dataHeFei = [[27, 22, 22]];
-var dataNanchang = [[28, 25, 35]];
-var dataDalian = [[29, 33, 33]];
-var dataWUxi = [[30, 31, 28]];
-var dataTaiyuan = [[31, 26, 10]];
-var dataDG = [[32, 11, 16]];
-var dataWLMQ = [[33, 36, 34]];
-var dataSuzhou = [[34, 32, 27]];
-var dataNingbo = [[35, 34, 36]];
-var dataLuoyang = [[36, 30, 26]];
-var dataXuzhou = [[37, 38, 38]];
-var dataWuhu = [[38, 37, 41]];
-var dataHHTT = [[39, 39, 40]];
-var dataShaoxing = [[40, 41, 42]];
-var dataJinan = [[41, 40, 39]];
-var dataWenzhou = [[42, 42, 46]];
-var dataNantong = [[43, 43, 37]];
-var dataJinhua = [[44, 44, 43]];
-var dataTaizhou = [[45, 45, 44]];
-var dataJiaxing = [[46, 46, 45]];
-
-var schema = [
-  { name: 'year1', index: 0, text: '2020年城市TOD指数排名' },
-  { name: 'year2', index: 1, text: '2022年城市TOD指数排名' },
-  { name: 'year3', index: 2, text: '2023年城市TOD指数排名' }
-];
-
-var lineStyle = {
-  normal: {
-    width: 3,
-    opacity: 0.7,
-    smooth: true
-  }
-};
-
-option = {
-  tooltip: {
-    padding: 10,
-    backgroundColor: 'white',
-    borderColor: '#777',
-    borderWidth: 1,
-    trigger: 'item',
-    formatter: function (params) {
-      // console.log(params);
-      var htmlStr = '';
-      var color = params.color; //图例颜色
-      var seriesName = params.seriesName; //图例名称
-      var xName = params.name; //x轴的名称
-      var value = params.value; //y轴值
-      htmlStr += seriesName + '<br/>';
-      htmlStr +=
-        '<span style="margin-right: 5px; font-size: 20px; font-family: Consolas;display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color:' +
-        color +
-        ' ;"></span>';
-      htmlStr += "<span style='min-height: 20pt; font-size: 10pt'>";
-      htmlStr += xName + '城市TOD指数排名';
-      htmlStr += '</span>';
-      htmlStr +=
-        "<span style='min-height: 20pt; font-size: 10pt; margin-left: 20px'>";
-      // console.log(params.data.length);
-      if (!value.length) {
-        htmlStr += value + '%';
-      } else {
-        htmlStr +=
-          '2020年名次' +
-          value[name + 0] +
-          '； 2022年名次' +
-          value[name + 1] +
-          '； 2023年名次' +
-          value[name + 2];
-      }
-      htmlStr += '</span>';
-      htmlStr += '</div>';
-      return htmlStr;
-    }
-  },
-  textStyle: {
-    color: 'white'
-  },
-  color: [
-    '#7EB99C',
-    '#61A395',
-    '#355E6C',
-    '#0056B1',
-    '#79B3DA',
-    '#B1B050',
-    '#797B1B',
-    '#9389D0',
-    '#CF9EAC',
-    '#ED5E93',
-    '#4B4B4B',
-    '#FFB47A',
-    '#7A7AAD'
-  ],
-  parallelAxis: [
-    {
-      dim: 0,
-      name: schema[0].text,
-      inverse: true,
-      min: 1,
-      max: 46,
-      nameLocation: 'start',
-      interval: 1
-    },
-    {
-      dim: 1,
-      name: schema[1].text,
-      min: 1,
-      max: 46,
-      inverse: true,
-      nameLocation: 'start',
-      interval: 0
-    },
-    {
-      dim: 2,
-      name: schema[2].text,
-      min: 1,
-      max: 46,
-      inverse: true,
-      nameLocation: 'start',
-      interval: 0
-    }
-  ],
-
-  parallel: [
-    {
-      left: '8%',
-      right: '8%',
-      bottom: '10%',
-      top: '10%',
-      parallelAxisDefault: {
-        silent: false, //坐标轴是否是静态无法交互
-        triggerEvent: true,
-        axisLabel: {
-          //坐标轴刻度标签的相关设置
-          show: true, //是否显示
-          interval: 1, //坐标轴刻度标签的显示间隔，在类目轴中有效。默认会采用标签不重叠的策略间隔显示标签。可以设置成 0 强制显示所有标签。如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推
-          //inside:false,             //刻度标签是否朝内，默认朝外
-          rotate: 0, //刻度标签旋转的角度，在类目轴的类目标签显示不下的时候可以通过旋转防止标签之间重叠。旋转的角度从 -90 度到 90 度
-          margin: -20, //刻度标签与轴线之间的距离
-          color: 'white'
-        }
-      }
-    }
-  ],
-  series: [
-    {
-      name: '深圳',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataSZ,
-      smooth: true
-    },
-     {
-      name: '石家庄',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataSJZ,
-      smooth: true
-    },
-    {
-      name: '上海',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataSH
-    },
-    {
-      name: '广州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataGZ,
-      smooth: true
-    },
-    {
-      name: '北京',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataBJ,
-      smooth: true
-    },
-    {
-      name: '厦门',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataXIAMEN,
-      smooth: true
-    },
-    {
-      name: '福州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataFZ,
-      smooth: true
-    },
-    {
-      name: '长沙',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataCS,
-      smooth: true
-    },
-    {
-      name: '成都',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataCD,
-      smooth: true
-    },
-    {
-      name: '西安',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataXA,
-      smooth: true
-    },
-    {
-      name: '重庆',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataCQ,
-      smooth: true
-    },
-    {
-      name: '东莞',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataDG,
-      smooth: true
-    },
-    {
-      name: '佛山',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataFOSHAN,
-      smooth: true
-    },
-    {
-      name: '杭州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataHZ,
-      smooth: true
-    },
-    {
-      name: '武汉',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataWUHAN,
-      smooth: true
-    },
-    {
-      name: '沈阳',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataSY,
-      smooth: true
-    },
-    {
-      name: '郑州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataZZ,
-      smooth: true
-    },
-    {
-      name: '昆明',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataKUNMING,
-      smooth: true
-    },
-    {
-      name: '南宁',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataNanning,
-      smooth: true
-    },
-    {
-      name: '贵阳',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataGUIYANG,
-      smooth: true
-    },
-    {
-      name: '哈尔滨',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataHEB,
-      smooth: true
-    },
-    {
-      name: '兰州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataLanzhou,
-      smooth: true
-    },
-    {
-      name: '合肥',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataHeFei,
-      smooth: true
-    },
-    {
-      name: '青岛',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataQingdao,
-      smooth: true
-    },
-    {
-      name: '常州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataChangzhou,
-      smooth: true
-    },
-    {
-      name: '南昌',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataNanchang,
-      smooth: true
-    },
-    {
-      name: '太原',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataTaiyuan,
-      smooth: true
-    },
-    {
-      name: '南京',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataNANJING,
-      smooth: true
-    },
-    {
-      name: '天津',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataTJ,
-      smooth: true
-    },
-    {
-      name: '洛阳',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataLuoyang,
-      smooth: true
-    },
-    {
-      name: '无锡',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataWUxi,
-      smooth: true
-    },
-    {
-      name: '苏州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataSuzhou,
-      smooth: true
-    },
-    {
-      name: '大连',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataDalian,
-      smooth: true
-    },
-    {
-      name: '宁波',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataNingbo,
-      smooth: true
-    },
-    {
-      name: '长春',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataChangchun,
-      smooth: true
-    },
-    {
-      name: '乌鲁木齐',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataWLMQ,
-      smooth: true
-    },
-    {
-      name: '芜湖',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataWuhu,
-      smooth: true
-    },
-    {
-      name: '徐州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataXuzhou,
-      smooth: true
-    },
-    {
-      name: '呼和浩特',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataHHTT,
-      smooth: true
-    },
-    {
-      name: '济南',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataJinan,
-      smooth: true
-    },
-    {
-      name: '绍兴',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataShaoxing,
-      smooth: true
-    },
-    {
-      name: '温州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataWenzhou,
-      smooth: true
-    },
-    {
-      name: '南通',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataNantong,
-      smooth: true
-    },
-    {
-      name: '金华',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataJinhua,
-      smooth: true
-    },
-    {
-      name: '台州',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataTaizhou
-    },
-    {
-      name: '嘉兴',
-      type: 'parallel',
-      lineStyle: lineStyle,
-      data: dataJiaxing,
-      smooth: true
-    }
-  ]
-};
-
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
-    window.addEventListener('resize', myChart.resize);
-  </script>
-
+<body>
+  <div class="container">
+    <div class="year-container hvr-grow">
+      <p>2020年</p>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+        <circle cx="4" cy="12" r="3" fill="currentColor">
+          <animate id="svgSpinners3DotsFade0" fill="freeze" attributeName="opacity"
+            begin="0;svgSpinners3DotsFade1.end-0.25s" dur="0.75s" values="1;.2" />
+        </circle>
+        <circle cx="12" cy="12" r="3" fill="currentColor" opacity=".4">
+          <animate fill="freeze" attributeName="opacity" begin="svgSpinners3DotsFade0.begin+0.15s" dur="0.75s"
+            values="1;.2" />
+        </circle>
+        <circle cx="20" cy="12" r="3" fill="currentColor" opacity=".3">
+          <animate id="svgSpinners3DotsFade1" fill="freeze" attributeName="opacity"
+            begin="svgSpinners3DotsFade0.begin+0.3s" dur="0.75s" values="1;.2" />
+        </circle>
+      </svg>
+    </div>
+    <div class="city-container">
+      <div class="citybox" id="rank1">
+        <p class="rank">1</p>
+        <p class="city">深圳</p>
+      </div>
+      <div class="citybox" id="rank2">
+        <p class="rank">2</p>
+        <p class="city">上海</p>
+      </div>
+      <div class="citybox" id="rank3">
+        <p class="rank">3</p>
+        <p class="city">广州</p>
+      </div>
+      <div class="citybox" id="rank4">
+        <p class="rank">4</p>
+        <p class="city">北京</p>
+      </div>
+      <div class="citybox" id="rank5">
+        <p class="rank">5</p>
+        <p class="city">哈尔滨</p>
+      </div>
+      <div class="citybox" id="rank6">
+        <p class="rank">6</p>
+        <p class="city">西安</p>
+      </div>
+      <div class="citybox" id="rank7">
+        <p class="rank">7</p>
+        <p class="city">福州</p>
+      </div>
+      <div class="citybox" id="rank8">
+        <p class="rank">8</p>
+        <p class="city">成都</p>
+      </div>
+      <div class="citybox" id="rank9">
+        <p class="rank">9</p>
+        <p class="city">杭州</p>
+      </div>
+      <div class="citybox" id="rank10">
+        <p class="rank">10</p>
+        <p class="city">长沙</p>
+      </div>
+      <div class="citybox" id="rank11">
+        <p class="rank">11</p>
+        <p class="city">沈阳</p>
+      </div>
+      <div class="citybox" id="rank12">
+        <p class="rank">12</p>
+        <p class="city">石家庄</p>
+      </div>
+      <div class="citybox" id="rank13">
+        <p class="rank">13</p>
+        <p class="city">郑州</p>
+      </div>
+      <div class="citybox" id="rank14">
+        <p class="rank">14</p>
+        <p class="city">天津</p>
+      </div>
+      <div class="citybox" id="rank15">
+        <p class="rank">15</p>
+        <p class="city">武汉</p>
+      </div>
+      <div class="citybox" id="rank16">
+        <p class="rank">16</p>
+        <p class="city">厦门</p>
+      </div>
+      <div class="citybox" id="rank17">
+        <p class="rank">17</p>
+        <p class="city">昆明</p>
+      </div>
+      <div class="citybox" id="rank18">
+        <p class="rank">18</p>
+        <p class="city">南京</p>
+      </div>
+      <div class="citybox" id="rank19">
+        <p class="rank">19</p>
+        <p class="city">佛山</p>
+      </div>
+      <div class="citybox" id="rank20">
+        <p class="rank">20</p>
+        <p class="city">贵阳</p>
+      </div>
+      <div class="citybox" id="rank21">
+        <p class="rank">21</p>
+        <p class="city">重庆</p>
+      </div>
+      <div class="citybox" id="rank22">
+        <p class="rank">22</p>
+        <p class="city">长春</p>
+      </div>
+      <div class="citybox" id="rank23">
+        <p class="rank">23</p>
+        <p class="city">南宁</p>
+      </div>
+      <div class="citybox" id="rank24">
+        <p class="rank">24</p>
+        <p class="city">青岛</p>
+      </div>
+      <div class="citybox" id="rank25">
+        <p class="rank">25</p>
+        <p class="city">兰州</p>
+      </div>
+      <div class="citybox" id="rank26">
+        <p class="rank">26</p>
+        <p class="city">常州</p>
+      </div>
+      <div class="citybox" id="rank27">
+        <p class="rank">27</p>
+        <p class="city">合肥</p>
+      </div>
+      <div class="citybox" id="rank28">
+        <p class="rank">28</p>
+        <p class="city">南昌</p>
+      </div>
+      <div class="citybox" id="rank29">
+        <p class="rank">29</p>
+        <p class="city">大连</p>
+      </div>
+      <div class="citybox" id="rank30">
+        <p class="rank">30</p>
+        <p class="city">无锡</p>
+      </div>
+      <div class="citybox" id="rank31">
+        <p class="rank">31</p>
+        <p class="city">太原</p>
+      </div>
+      <div class="citybox" id="rank32">
+        <p class="rank">32</p>
+        <p class="city">东莞</p>
+      </div>
+      <div class="citybox" id="rank33">
+        <p class="rank">33</p>
+        <p class="city">乌鲁木齐</p>
+      </div>
+      <div class="citybox" id="rank34">
+        <p class="rank">34</p>
+        <p class="city">苏州</p>
+      </div>
+      <div class="citybox" id="rank35">
+        <p class="rank">35</p>
+        <p class="city">宁波</p>
+      </div>
+      <div class="citybox" id="rank36">
+        <p class="rank">36</p>
+        <p class="city">洛阳</p>
+      </div>
+      <div class="citybox" id="rank37">
+        <p class="rank">37</p>
+        <p class="city">徐州</p>
+      </div>
+      <div class="citybox" id="rank38">
+        <p class="rank">38</p>
+        <p class="city">芜湖</p>
+      </div>
+      <div class="citybox" id="rank39">
+        <p class="rank">39</p>
+        <p class="city">呼和浩特</p>
+      </div>
+      <div class="citybox" id="rank40">
+        <p class="rank">40</p>
+        <p class="city">绍兴</p>
+      </div>
+      <div class="citybox" id="rank41">
+        <p class="rank">41</p>
+        <p class="city">济南</p>
+      </div>
+      <div class="citybox" id="rank42">
+        <p class="rank">42</p>
+        <p class="city">温州</p>
+      </div>
+      <div class="citybox" id="rank43">
+        <p class="rank">43</p>
+        <p class="city">南通</p>
+      </div>
+      <div class="citybox" id="rank44">
+        <p class="rank">44</p>
+        <p class="city">金华</p>
+      </div>
+      <div class="citybox" id="rank45">
+        <p class="rank">45</p>
+        <p class="city">台州</p>
+      </div>
+      <div class="citybox" id="rank46">
+        <p class="rank">46</p>
+        <p class="city">嘉兴</p>
+      </div>
+    </div>
+    <script src="script.js"></script>
 </body>
+
+</html>
