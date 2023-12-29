@@ -1,0 +1,53 @@
+import dash
+from dash import html, dcc, Input, Output
+import pandas as pd
+import plotly.express as px
+
+# 创建 Dash 应用
+app = dash.Dash(__name__)
+
+# 读取数据
+data = pd.read_excel("D:/大学的一些作业/大三的课/R/可视化/折线图表交互.xlsx")
+
+# 创建折线图
+fig = px.line(data, x='Year', y='500m_male(s)',
+              title='男子500米成绩随年份的变化',
+              labels={'500m_male(s)': '500米成绩 (秒)','Year':'日期'})
+fig.update_layout(title_x=0.5)
+# 自定义悬停文本
+fig.update_traces(mode='lines+markers',
+                  hovertemplate="<b>日期:</b> %{x}<br><b>成绩:</b> %{y}<br>"
+                                "<b>运动员:</b> %{customdata}",
+                  customdata=data['运动员'])
+fig.update_layout({ 'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)' })
+# Dash 应用布局
+app.layout = html.Div([
+    html.Div([
+        dcc.Graph(id='line-plot', figure=fig)
+    ], style={'display': 'inline-block', 'width': '70%', 'vertical-align': 'top'}),
+
+    html.Div([
+        html.Img(id='image', style={'maxWidth': '300px', 'maxHeight': '300px'}),
+        html.Div(id='athlete-name')  # 这一行应该在这个 div 的内部
+    ], style={'display': 'flex', 'flex-direction': 'column', 'justify-content': 'center', 'align-items': 'center', 'width': '30%', 'vertical-align': 'bottom'})
+], style={'display': 'flex'})
+
+
+# Dash 回调函数
+@app.callback(
+    [Output('image', 'src'), Output('athlete-name', 'children')],
+    [Input('line-plot', 'clickData')]
+)
+def display_image(clickData):
+    if clickData is None:
+        return '', ''  # 如果没有点击，不显示图片和名字
+    customdata = clickData['points'][0]['customdata']
+    # 根据点击的数据点找到对应的图片URL和运动员名字
+    image_url = data[data['运动员'] == customdata]['image_url'].values[0]
+    athlete_name = f"运动员：{customdata}"
+    return image_url, athlete_name
+
+
+# 运行应用
+if __name__ == '__main__':
+    app.run_server(debug=True)
